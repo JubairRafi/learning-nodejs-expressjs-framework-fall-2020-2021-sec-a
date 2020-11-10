@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User List</title>
+</head>
+<body>
+	<h1> Userlist</h1>
+
+	<a href="/home">Back</a> | 
+	<a href="/logout">logout</a> 
+	<br>
+
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>Username</td>
+			<td>Password</td>
+			<td>Email</td>
+			<td>Action</td>
+		</tr>
+		
+		
+
+		<% users.forEach( function(std,i){ %>
+			<%console.log(i++); %>
+			<tr>
+				<td><%= i %></td>
+				<td><%= std[0] %></td>
+				<td><%= std[1] %></td>
+				<td><%= std[2] %></td>
+				<td>
+					<a href="/user/edit/<%= i %>">Edit</a> |
+					<a href="/user/delete/<%= i %>">Delete</a>
+				</td>
+			</tr>
+
+		<%
+			}); 
+		%>
+		
+	</table>
+
+</body>
+</html>
