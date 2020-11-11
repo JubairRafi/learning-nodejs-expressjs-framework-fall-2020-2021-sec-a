@@ -34,5 +34,20 @@ module.exports = {
                 console.log("connection ended");
             })
         })
+    },
+
+    execute:(sql,callback)=>{
+        getConnection(connection=>{
+            connection.query(sql,(error,status)=>{
+                if (status) {
+                    callback(true)
+                }else{
+                    callback(false)
+                }
+            })
+            connection.end((err)=>{
+                console.log("connection ended");
+            })
+        })
     }
 }
