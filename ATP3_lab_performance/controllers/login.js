@@ -1,6 +1,5 @@
 const express 	= require('express');
-
-const db = require.main.require("./models/db")
+const employerModel = require.main.require("./models/employerModel")
 const router 	= express.Router();
 
 router.get('/', (req, res)=>{
@@ -9,17 +8,20 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
 
+		  var employer = {
+        username: req.body.username,
+        password: req.body.password
+      }
+
+      employerModel.validate(employer,status=>{
+        if (status) {
+          res.cookie('uname', req.body.username)
+          res.redirect("/home")
+        }else{
+          res.redirect("/login")
+        }
+      })
 		  
-		  var sql = "select * from user where username='"+req.body.username+"' and password='"+req.body.password+"'";
-			  
-		  db.getResults(sql, (results)=>{
-				if (results.length >0) {
-					res.cookie('uname', req.body.username);
-					res.redirect("/home")
-				}else{
-					res.redirect("/login")
-				}
-		  })
 }); 
 
 
