@@ -10,6 +10,13 @@ module.exports = {
 		})
     },
 
+    getById : function(id,callback){
+        var sql = "select * from job where id='"+id+"'";
+        db.getResults(sql,results=>{
+            callback(results)
+        })
+    },
+
     insert: function(job,callback){
          
 		  var sql = "insert into job values('','"+job.companyName+"','"+job.jobTitle+"','"+job.location+"', '"+job.salary+"')";
@@ -21,8 +28,8 @@ module.exports = {
     },
 
 
-    update: function(id,employerEditedInfo,callback){
-      var sql = "update user job employerName = '"+employerEditedInfo.employerName+"',companyName = '"+employerEditedInfo.companyName+"',contact = '"+employerEditedInfo.contact+"',username = '"+employerEditedInfo.username+"',password = '"+employerEditedInfo.password+"' where id='"+id+"'";
+    update: function(id,job,callback){
+      var sql = "update job set companyName = '"+job.companyName+"',jobTitle = '"+job.jobTitle+"',location = '"+job.location+"',salary = '"+job.salary+"' where id='"+id+"'";
         
       db.execute(sql,status=>{
           callback(status)

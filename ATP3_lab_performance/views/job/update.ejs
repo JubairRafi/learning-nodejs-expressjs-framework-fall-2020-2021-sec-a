@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>update job</title>
+</head>
+<body>
+	<form method="post">
+        
+		<fieldset>
+			<legend>update job</legend>
+			<table>
+				<tr>
+					<td>company Name</td>
+					<td><input type="text" name="companyName" value="<%=jobEdit.companyName%>"></td>
+				</tr>
+				<tr>
+					<td>Job Title</td>
+					<td><input type="text" name="jobTitle" value="<%=jobEdit.jobTitle%>"></td>
+				</tr>
+				<tr>
+					<td>Location</td>
+					<td><input type="text" name="location" value="<%=jobEdit.location%>"></td>
+				</tr>
+				<tr>
+					<td>salary</td>
+					<td><input type="text" name="salary" value="<%=jobEdit.salary%>"></td>
+				</tr>
+			
+				<tr>
+					<td></td>
+					<td><input type="submit" name="submit" value="Submit"></td>
+				</tr>
+			</table>
+		</fieldset>
+    </form>
+    <a href="/home/job">Back</a>
+</body>
+</html>
