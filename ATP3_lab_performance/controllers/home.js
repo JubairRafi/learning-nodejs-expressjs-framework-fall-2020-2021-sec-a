@@ -1,5 +1,6 @@
 const express 	= require('express');
 const employerModel = require.main.require("./models/employerModel")
+const jobModel = require.main.require("./models/jobModel")
 const router 	= express.Router();
 
 
@@ -26,6 +27,17 @@ router.get('/employerlist', (req, res)=>{
 
 	
 })
+
+router.get('/job', (req, res)=>{
+
+		jobModel.getAllJobs(results=>{
+			res.render("job/joblist",{jobs:results})
+		})
+		
+
+})
+
+
 
 module.exports = router;
 

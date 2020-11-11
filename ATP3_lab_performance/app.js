@@ -6,7 +6,8 @@ const cookieParser 		= require('cookie-parser');
 const login				= require('./controllers/login');
 const logout			= require('./controllers/logout');
 const home				= require('./controllers/home');
-const employer				= require('./controllers/employer');
+const job				= require('./controllers/job');	
+const employer			= require('./controllers/employer');
 const app				= express();
 const port				= 3000;
 
@@ -23,6 +24,7 @@ app.use('/login', login);
 app.use('/home', home);
 app.use('/logout', logout);
 app.use('/employer', employer);
+app.use('/job',job);
 
 //router
 app.get('/', (req, res)=>{

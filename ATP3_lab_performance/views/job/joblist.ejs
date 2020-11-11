@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Job List</title>
+</head>
+<body>
+	<h1> Joblist</h1>
+
+    <a href="/home">Back</a> |
+    <a href="/job/add"> Add Jobs</a> |   
+	<a href="/logout">logout</a> 
+	<br>
+
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>Company Name</td>
+			<td>Job Title</td>
+			<td>Location</td>
+            <td>Salary</td>
+            <td>Action</td>
+		</tr>
+		
+
+		<% jobs.forEach( function(std,i){ %>
+			<%console.log(i++); %>
+			<tr>
+				<td><%= std.id %></td>
+				<td><%= std.companyName %></td>
+				<td><%= std.jobTitle %></td>
+				<td><%= std.location %></td>
+				<td><%= std.salary %></td>
+				<td>
+					<a href="/job/edit/<%= std.id %>">Edit</a> |
+					<a href="/job/delete/<%= std.id %>">Delete</a>
+				</td>
+			</tr>
+
+		<%
+			}); 
+		%>
+		
+    </table>
+    
+    
+
+</body>
+</html>
