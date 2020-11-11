@@ -1,5 +1,5 @@
 const express 	= require('express');
-const mysql = require('mysql');
+const db = require.main.require("./models/db")
 const router 	= express.Router();
 
 
@@ -19,32 +19,12 @@ router.get('/employerlist', (req, res)=>{
 
 	if(req.cookies['uname'] != ""){
 
-		var connection = mysql.createConnection({
-			host     :'127.0.0.1',
-			database :'jobportal',
-			user     :'root',
-			password : ''
-			});
-			
-			connection.connect(function(err) {
-				if (err) {
-				  console.error('error connecting: ' + err.stack);
-				  return;
-				}
-			   
-				console.log('connected as id ' + connection.threadId);
-			  });
-			  
-			  var sql = "select * from user";
-				  
-			  connection.query(sql,(err,results)=>{
-					  res.render('home/employerlist', {users: results });
+		var sql = "select * from user";
 	
-			  });
-			  connection.end((err)=>{
-				  console.log("connection ended");
-			  })
-		
+		db.getResults(sql,(results)=>{
+			res.render('home/employerlist', {users: results });
+		})
+
 	}else{
 		res.redirect('/login');
 	}

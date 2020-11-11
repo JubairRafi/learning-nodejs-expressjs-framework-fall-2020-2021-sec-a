@@ -1,5 +1,6 @@
 const express 	= require('express');
-const mysql = require("mysql");
+
+const db = require.main.require("./models/db")
 const router 	= express.Router();
 
 router.get('/', (req, res)=>{
@@ -8,30 +9,16 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
 
-	var connection = mysql.createConnection({
-        host     :'127.0.0.1',
-        database :'jobportal',
-        user     :'root',
-        password : ''
-        });
-        
-        connection.connect(function(err) {
-            if (err) {
-              console.error('error connecting: ' + err.stack);
-              return;
-            }
-           
-            console.log('connected as id ' + connection.threadId);
-		  });
 		  
 		  var sql = "select * from user where username='"+req.body.username+"' and password='"+req.body.password+"'";
 			  
-		  connection.query(sql,(err,results)=>{
-			  	res.cookie('uname',req.body.username);
-				res.redirect("/home")
-		  });
-		  connection.end((err)=>{
-			  console.log("connection ended");
+		  db.getResults(sql, (results)=>{
+				if (results.length >0) {
+					res.cookie('uname', req.body.username);
+					res.redirect("/home")
+				}else{
+					res.redirect("/login")
+				}
 		  })
 }); 
 

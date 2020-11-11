@@ -1,5 +1,6 @@
 const express 	= require('express');
 const mysql = require('mysql');
+const db = require('../models/db');
 const router 	= express.Router();
 
 router.get('/registration', (req, res)=>{
@@ -13,30 +14,19 @@ router.get('/registration', (req, res)=>{
 
 router.post('/registration', (req, res)=>{
 	
-	var connection = mysql.createConnection({
-        host     :'127.0.0.1',
-        database :'jobportal',
-        user     :'root',
-        password : ''
-        });
-        
-        connection.connect(function(err) {
-            if (err) {
-              console.error('error connecting: ' + err.stack);
-              return;
-            }
-           
-            console.log('connected as id ' + connection.threadId);
-		  });
+	
 		  
 		  var sql = "insert into user values('','"+req.body.employerName+"','"+req.body.companyName+"','"+req.body.contactNo+"', '"+req.body.username+"',  '"+req.body.password+"')";
-		  connection.query(sql,(err,results)=>{
-		
-				res.redirect("/home")
-		  });
-		  connection.end((err)=>{
-			  console.log("connection ended");
-		  })
+				db.getResults(sql,(results)=>{
+					if (results) {
+						res.redirect("/home")
+					}else{
+						res.send("registration failed")
+					}
+					
+				})
+				
+		 
 });
 
 router.get('/edit/:id', (req, res)=>{
