@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2020 at 08:43 AM
+-- Generation Time: Nov 11, 2020 at 08:51 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `jobportal`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job`
+--
+
+CREATE TABLE `job` (
+  `id` int(5) NOT NULL,
+  `companyName` varchar(20) NOT NULL,
+  `jobTitle` varchar(20) NOT NULL,
+  `location` varchar(20) NOT NULL,
+  `salary` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `job`
+--
+
+INSERT INTO `job` (`id`, `companyName`, `jobTitle`, `location`, `salary`) VALUES
+(1, 'brainstorm', 'full stack developer', 'dhaka', 90000);
 
 -- --------------------------------------------------------
 
@@ -50,6 +71,12 @@ INSERT INTO `user` (`id`, `employerName`, `companyName`, `contact`, `username`, 
 --
 
 --
+-- Indexes for table `job`
+--
+ALTER TABLE `job`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -60,10 +87,16 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `job`
+--
+ALTER TABLE `job`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
