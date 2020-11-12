@@ -1,4 +1,5 @@
 const express 	= require('express');
+const { body, validationResult } = require('express-validator'); 
 const employerModel = require.main.require("./models/employerModel")
 const router 	= express.Router();
 
@@ -10,6 +11,21 @@ router.get("*",(req,res,next)=>{
 	}
 })
 
+router.post("*",[				 
+	body('username').isEmail(),
+	
+	body('password').isLength({ min: 5 })
+	],(req, res,next)=>{
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}else{
+			next()
+		}
+	
+	})
+
 router.get('/registration', (req, res)=>{
 	
 	
@@ -18,10 +34,8 @@ router.get('/registration', (req, res)=>{
 });
 
 router.post('/registration', (req, res)=>{
-	
-	
-		  
-		  var employer = {
+			  
+	var employer = {
 			employerName: req.body.employerName,
 			companyName: req.body.companyName,
 			contactNo: req.body.contactNo,
@@ -54,7 +68,8 @@ router.get('/edit/:id', (req, res)=>{
 		
 });
 
-router.post('/edit/:id', (req, res)=>{
+router.post('/edit/:id',   (req, res)=>{
+
 		const employerEditedInfo = {
 			employerName: req.body.employerName,
 			companyName: req.body.companyName,
