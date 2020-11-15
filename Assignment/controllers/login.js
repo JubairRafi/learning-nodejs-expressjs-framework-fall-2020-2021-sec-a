@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator');
 const userModel = require.main.require("./models/userModel")
 const router 	= express.Router();
 
-router.post("*",[				  //POST : *
+router.post("*",[				  //POST : ("*")
 	body('email').isEmail(),
 	
 	body('pass').isLength({ min: 5 })
