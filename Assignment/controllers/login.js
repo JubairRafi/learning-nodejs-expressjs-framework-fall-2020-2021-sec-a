@@ -35,7 +35,12 @@ router.post("/",(req,res)=>{ //POST:/login
             res.cookie('uname', req.body.email)
             console.log(results[0].type);
             res.redirect("/admin")
-        }else{
+        }else if(results[0].type=="customer"){
+            res.cookie('uname', req.body.email)
+            console.log(results[0].type);
+            res.redirect("/home")
+        }
+        else{
             res.redirect("/login")
         }
     })

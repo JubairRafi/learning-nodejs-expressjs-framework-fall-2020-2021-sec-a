@@ -22,6 +22,15 @@ module.exports = {
 				callback(status)
 		  })
 	
+		},
+
+		insertCusToUser :function(customerInfo,callback){
+			var sql = "insert into user values('','"+customerInfo.email+"', '"+customerInfo.password+"', '"+customerInfo.type+"')";
+				  
+			db.execute(sql, status=>{
+				callback(status)
+		  })
+	
 		}
    
 
