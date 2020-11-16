@@ -4,6 +4,14 @@ const userModel = require.main.require("./models/userModel")
 const adminModel = require.main.require("./models/adminModel")
 const router 	= express.Router();
 
+router.get('*',(req,res,next)=>{    // GET : (*)
+	if(req.cookies['uname'] == null){
+		res.redirect("/login")
+	}else{
+		next()
+	}
+})
+
 
 router.post("*",[				  //POST : ("*")
 	body('email').isEmail(),

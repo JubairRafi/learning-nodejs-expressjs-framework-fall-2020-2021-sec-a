@@ -3,6 +3,7 @@ const bodyParser 		= require('body-parser');
 const cookieParser 		= require('cookie-parser');
 const login				= require('./controllers/login');
 const admin				= require('./controllers/admin');
+const logout				= require('./controllers/logout');
 const app               = express();
 const port              = 3000;
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 //route
 app.use("/login",login)
 app.use("/admin",admin)
+app.use("/logout",logout)
 
 app.get("/",(req,res)=>{
     res.send("HOME");
