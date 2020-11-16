@@ -1,6 +1,6 @@
 
 const express = require("express")
-const { body, validationResult } = require('express-validator'); 
+const { body, validationResult} = require('express-validator'); 
 const userModel = require.main.require("./models/userModel")
 const router 	= express.Router();
 
@@ -30,10 +30,11 @@ router.post("/",(req,res)=>{ //POST:/login
         password : req.body.pass
     }
 
-    userModel.validate(user,status=>{
-        if (status) {
+    userModel.validate(user,results=>{
+        if (results[0].type=="admin") {
             res.cookie('uname', req.body.email)
-            res.redirect("/")
+            console.log(results[0].type);
+            res.redirect("/admin")
         }else{
             res.redirect("/login")
         }

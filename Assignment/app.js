@@ -2,6 +2,7 @@ const express           = require("express")
 const bodyParser 		= require('body-parser');
 const cookieParser 		= require('cookie-parser');
 const login				= require('./controllers/login');
+const admin				= require('./controllers/admin');
 const app               = express();
 const port              = 3000;
 
@@ -9,14 +10,16 @@ const port              = 3000;
 app.set('view engine', 'ejs');
 
 //middleware
-app.use(express.static('public/login'))
+// app.use(express.static('public/login'))
+app.use(express.static('public'));
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
 //route
 app.use("/login",login)
-
+app.use("/admin",admin)
 
 app.get("/",(req,res)=>{
     res.send("HOME");

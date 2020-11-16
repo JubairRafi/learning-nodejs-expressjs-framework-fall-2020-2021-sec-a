@@ -7,13 +7,24 @@ module.exports = {
 			  
 		  db.getResults(sql, results=>{
 				if (results.length >0) {
-					callback(true)
+					callback(results)
 				}else{
 					callback(false)
 				}
 		  })
 
-        }
+		},
+		
+		insert : function(adminInfo,callback){
+			var sql = "insert into user values('','"+adminInfo.email+"', '"+adminInfo.password+"', '"+adminInfo.type+"')";
+				  
+			db.execute(sql, status=>{
+				callback(status)
+		  })
+	
+		}
+   
+
  }
 
     
