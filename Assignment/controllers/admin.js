@@ -2,6 +2,7 @@ const express = require("express")
 const { body, validationResult, Result } = require('express-validator'); 
 const userModel = require.main.require("./models/userModel")
 const adminModel = require.main.require("./models/adminModel")
+const medicineModel = require.main.require("./models/medicineModel")
 const router 	= express.Router();
 
 router.get('*',(req,res,next)=>{    // GET : (*)
@@ -31,15 +32,15 @@ router.post("*",[				  //POST : ("*")
     })
     
 
-router.get("/",(req,res)=>{
+router.get("/",(req,res)=>{                 // GET :/admin
     res.render("admin/index",{loggedName:req.cookies['uname']})
 })
 
-router.get("/registration",(req,res)=>{
+router.get("/registration",(req,res)=>{   // GET : /admin/registration
     res.render("admin/register");
 })
 
-router.post("/registration",(req,res)=>{
+router.post("/registration",(req,res)=>{  // POST : /admin/registration
     const adminInfo = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -63,8 +64,27 @@ router.post("/registration",(req,res)=>{
         }
     })
 
-    
 
+
+    
+})
+
+router.get("/medicine",(req,res)=>{  //GET : /ADMIN/medicine
+
+    medicineModel.getAllMedicine(results=>{
+        res.render("admin/medicine",{loggedName:req.cookies['uname'],medicines:results})
+    })
+    
+})
+
+router.get("/medicine/delete/:id",(req,res)=>{  //GET : /ADMIN//medicine/delete/:id
+    const id = req.params.id;
+    medicineModel.deleteMedicine(id,status=>{
+        if (status) {
+            res.redirect("/admin/medicine")
+        }
+        
+    })
     
 })
 
