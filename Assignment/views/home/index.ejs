@@ -70,7 +70,16 @@
                 </li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
+
+                <% console.log(loggedName) %> 
+                <% if(loggedName==null) {%> 
                 <li><a href="/login">login</a></li>
+                <%} else { %> 
+                  <% console.log(loggedName) %> 
+                  <li><a href="/home/profile/<%=cid %>">Profile</a></li>
+                  <li><a href="/logout">logout</a></li>
+                <% } %> 
+
               </ul>
             </nav>
           </div>

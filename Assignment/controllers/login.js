@@ -31,18 +31,24 @@ router.post("/",(req,res)=>{ //POST:/login
     }
 
     userModel.validate(user,results=>{
-        if (results[0].type=="admin") {
-            res.cookie('uname', req.body.email)
-            console.log(results[0].type);
-            res.redirect("/admin")
-        }else if(results[0].type=="customer"){
-            res.cookie('uname', req.body.email)
-            console.log(results[0].type);
-            res.redirect("/home")
+
+        if (results) {
+            if (results[0].type=="admin") {
+                res.cookie('uname', req.body.email)
+                console.log(results[0].type);
+                res.redirect("/admin")
+            }else if(results[0].type=="customer"){
+                res.cookie('uname', req.body.email)
+                console.log(results[0].type);
+                res.redirect("/home")
+            }
+            else{
+                res.redirect("/login")  
+            }
+        }else{
+            res.redirect("/login") 
         }
-        else{
-            res.redirect("/login")
-        }
+        
     })
 })
 
