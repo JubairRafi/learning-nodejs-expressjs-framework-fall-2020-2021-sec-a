@@ -1,5 +1,6 @@
 const express           = require("express");
 const cookieParser 		= require('cookie-parser');
+const expressLayouts = require('express-ejs-layouts')
 const bodyParser        = require("body-parser");
 
 //controllers
@@ -11,10 +12,13 @@ const app = express();
 const port = 3000;
 
 //config
+app.use(expressLayouts);
 app.set('view engine', 'ejs');
+app.set('layout', './layouts/dashboard');
 
 //middleware
 app.use('/public', express.static('public'));
+
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,7 +33,7 @@ app.get("/",(req,res)=>{
 
 
 
-app.listen(3000,(err)=>{
+app.listen(port,(err)=>{
     if (!err) {
         console.log("server started at "+port);
     }
