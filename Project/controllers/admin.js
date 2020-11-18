@@ -1,9 +1,13 @@
 const express = require("express")
 const router = express.Router()
 const event = require.main.require("./controllers/event")
+const seller = require.main.require("./controllers/seller")
+const retailManager = require.main.require("./controllers/retailManager")
 
 
 router.use("/event",event)
+router.use("/seller",seller)
+router.use("/retailManager",retailManager)
 
 
 //route root : /admin
