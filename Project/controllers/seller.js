@@ -12,6 +12,9 @@ router.get("/",(req,res)=>{
 router.get("/addSeller",(req,res)=>{
     res.render("admin/addSeller")
 })
+router.get("/edit",(req,res)=>{
+    res.render("admin/editSeller")
+})
 
 
 
