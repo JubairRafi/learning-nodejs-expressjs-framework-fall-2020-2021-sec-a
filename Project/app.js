@@ -6,6 +6,8 @@ const bodyParser        = require("body-parser");
 //controllers
 
 const admin = require("./controllers/admin")
+const login = require("./controllers/login")
+const logout = require("./controllers/logout")
 
 
 const app = express();
@@ -26,6 +28,9 @@ app.use(cookieParser());
 
 //route
 app.use("/admin",admin);
+app.use("/login",login);
+app.use("/logout",logout);
+
 
 app.get("/",(req,res)=>{
     res.send("HOME");

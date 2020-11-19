@@ -14,6 +14,15 @@ router.use("/list",list)
 
 //route root : /admin
 
+router.get('*',(req,res,next)=>{    // GET : (*)
+	if(req.cookies['uname'] == null){
+		res.redirect("/login")
+	}else{
+		next()
+	}
+})
+
+
 router.get("/",(req,res)=>{
     res.render("admin/index")
 })
