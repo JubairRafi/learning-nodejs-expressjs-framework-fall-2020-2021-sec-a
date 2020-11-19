@@ -496,9 +496,13 @@ input {
 }
 
 .card-3 .card-heading {
-  background: url("../images/bg-heading-03.jpg") top left/cover no-repeat;
+  background: url("../images/picture.jpg") top left/cover no-repeat;
   display: table-cell;
-  width: 50%;
+  width: 10%;
+}
+img{
+  width: 100px;
+  height: 100px;
 }
 
 .card-3 .card-body {

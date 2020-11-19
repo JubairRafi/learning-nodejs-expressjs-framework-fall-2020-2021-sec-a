@@ -32,7 +32,9 @@ app.use("/login",login);
 app.use("/logout",logout);
 
 
+
 app.get("/",(req,res)=>{
+    res.cookie('up', __dirname+'/public/admin/uploads')
     res.send("HOME");
 })
 

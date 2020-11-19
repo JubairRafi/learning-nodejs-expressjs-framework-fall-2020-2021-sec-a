@@ -6,7 +6,7 @@ const mysql = require("mysql");
 var getConnection = (callback=>{
     var connection = mysql.createConnection({
         host     :'127.0.0.1',
-        database :'eBusiness',
+        database :'ebazar',
         user     :'root',
         password : ''
         });

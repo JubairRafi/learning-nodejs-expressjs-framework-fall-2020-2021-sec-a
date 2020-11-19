@@ -10,25 +10,35 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Profile</h2>
-                    <form method="POST">
-                        <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Name" name="name">
+                    <form method="POST" encType="multipart/form-data">
+                        <div class="">
+                            <img src="/public/admin/uploads/sampleFile.jpg" alt="profilePic">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Email" name="email">
+                            <input class="input--style-3" type="text" placeholder="Name" name="name" value="<%= adminInfo.name %> ">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Password" name="password">
+                            <input class="input--style-3" type="text" placeholder="Email" name="email" value="<%= adminInfo.email %> ">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="contact" name="contact">
+                            <input class="input--style-3" id="passIn" type="password" placeholder="Password" name="password"onmousedown="this.type='text'"
+                            onmouseup="this.type='password'"
+                            onmousemove="this.type='password'" value="<%= adminInfo.password %>">
+                        </div>
+                               
+                        <div class="input-group">
+                            <input class="input--style-3" type="text" placeholder="contact" name="contact" value="<%= adminInfo.phone_no %> ">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="file" name="profilePic">
+                            <input class="input--style-3" type="file" name="profilePic"/>
+
                         </div>
                         <div class="p-t-10">
                             <button class="btn btn--pill btn--green" type="submit">Submit</button>
                         </div>
+                     
+                            
+                                     
                     </form>
                 </div>
             </div>
@@ -40,5 +50,15 @@
 
     <!-- Main JS-->
     <script src="/public/admin/profile/js/global.js"></script>
+            <script>
+                function showP() {
+                    var x = document.getElementById("passIn");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                    } 
+            </script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
