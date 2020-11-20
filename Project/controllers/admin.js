@@ -78,8 +78,36 @@ router.post("/profile", (req,res)=>{  //POST : /admin/profile
             })
 })
 
+router.get("/customer/:id", (req,res)=>{
+    const cid = req.params.id;
+    userModel.getCustomerByID(cid,result=>{
+        console.log(result);
+        res.render('admin/customerBan',{customer:result[0],loogedName: req.cookies['uname']})
+    })
+    
+})
+
+router.post("/customer/:id", (req,res)=>{
+    const cid = req.params.id;
+    userModel.banCustomer(cid,result=>{
+        console.log(result);
+        res.redirect("/admin/customer")
+    })
+    
+})
+router.get("/customer/unban/:id", (req,res)=>{
+    const cid = req.params.id;
+    userModel.unbanCustomer(cid,result=>{
+        console.log(result);
+        res.redirect("/admin/customer")
+    })
+    
+})
 router.get("/customer", (req,res)=>{
-    res.render('admin/customer',{loogedName: req.cookies['uname']})
+    userModel.getCustomer(result=>{
+        console.log(result);
+        res.render('admin/customer',{customerInfo:result,loogedName: req.cookies['uname']})
+    })
 })
 
 router.get("/verifySeller", (req,res)=>{
