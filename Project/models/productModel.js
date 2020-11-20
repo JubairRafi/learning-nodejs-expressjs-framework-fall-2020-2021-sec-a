@@ -52,6 +52,32 @@ module.exports = {
                             callback(false)
                         }
                   })
+                },
+
+            getAllCatagory:function(callback){
+                var sql = "select * from catagory";
+                console.log(sql);
+                   
+                  db.getResults(sql, results=>{
+                    console.log("back from retailseller");
+                        if (results.length >0) {
+                            callback(results)
+                        }else{
+                            callback(false)
+                        }
+                  })
+                },
+            getOrder :function(callback){
+                var sql = "select * from orderlist";
+                console.log(sql);
+                   
+                  db.getResults(sql, results=>{
+                        if (results.length >0) {
+                            callback(results)
+                        }else{
+                            callback(false)
+                        }
+                  })
                 }
         
  }

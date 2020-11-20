@@ -21,10 +21,17 @@ router.get("/product",(req,res)=>{
     
 })
 router.get("/catagory",(req,res)=>{
-    res.render("admin/catagoryList",{loogedName: req.cookies['uname']})
+    productModel.getAllCatagory(results=>{
+        res.render("admin/catagoryList",{catagoryInfo:results,loogedName: req.cookies['uname']})
+    })
+    
 })
+
 router.get("/order",(req,res)=>{
-    res.render("admin/orderList",{loogedName: req.cookies['uname']})
+    productModel.getOrder(results=>{
+        res.render("admin/orderList",{orderInfo:results,loogedName: req.cookies['uname']})
+    })
+    
 })
 
 
