@@ -5,7 +5,7 @@ const router = express.Router()
 //route root : /admin/retailManager
 
 router.get("/",(req,res)=>{
-    res.render("admin/retailManagerList")
+    res.render("admin/retailManagerList",{loogedName: req.cookies['uname']})
 })
 
 

@@ -1,7 +1,7 @@
 
 const express = require("express")
 const { body, validationResult} = require('express-validator'); 
-const userModel = require.main.require("./models/userModel")
+const adminModel = require("../models/adminModel");
 const router 	= express.Router();
 
 router.post("*",[				  //POST : ("*")
@@ -25,27 +25,17 @@ router.get('/', (req, res)=>{ //GET:/login
 });
 
 router.post("/",(req,res)=>{ //POST:/login
-    const user ={
+    const admin ={
         username : req.body.email,
         password : req.body.pass
     }
 
-    userModel.validate(user,results=>{
+    adminModel.validate(admin,results=>{
 
         if (results) {
-            if (results[0].type=="admin") {
                 res.cookie('uname', req.body.email)
-                res.cookie('uid', results[0].user_id)
-                console.log(results[0].type);
+                res.cookie('aid', results[0].admin_id)
                 res.redirect("/admin")
-            }else if(results[0].type=="customer"){
-                res.cookie('uname', req.body.email)
-                console.log(results[0].type);
-                res.redirect("/home")
-            }
-            else{
-                res.redirect("/login")  
-            }
         }else{
             res.redirect("/login") 
         }

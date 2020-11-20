@@ -5,15 +5,15 @@ const router = express.Router()
 //route root : /admin/seller
 
 router.get("/",(req,res)=>{
-    res.render("admin/sellerList")
+    res.render("admin/sellerList",{loogedName: req.cookies['uname']})
 })
 
 
 router.get("/addSeller",(req,res)=>{
-    res.render("admin/addSeller")
+    res.render("admin/addSeller",{loogedName: req.cookies['uname']})
 })
 router.get("/edit",(req,res)=>{
-    res.render("admin/editSeller")
+    res.render("admin/editSeller",{loogedName: req.cookies['uname']})
 })
 
 

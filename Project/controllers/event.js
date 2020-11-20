@@ -6,12 +6,12 @@ const router = express.Router()
 
 router.get("/",(req,res)=>{
 
-    res.render("admin/pastEvent")
+    res.render("admin/pastEvent",{loogedName: req.cookies['uname']})
 })
 
 
 router.get("/addEvent",(req,res)=>{
-    res.render("admin/addEvent")
+    res.render("admin/addEvent",{loogedName: req.cookies['uname']})
 })
 
 

@@ -49,21 +49,21 @@ router.get("/profile", (req,res)=>{  //GET : /admin/profile
 })
 
 router.post("/profile", (req,res)=>{  //POST : /admin/profile
-    const uid = req.cookies['uid'];
+    const aid = req.cookies['aid'];
     const id = 1
     const user = {
         name:req.body.name,
         email: req.body.email,
         password: req.body.password,
         contact: req.body.contact,
-        pp:req.body.profilePic
+        pp:req.files.profilePic
 
     }
     //file upload test
+    console.log(user.pp);
   
-    let sampleFile = req.files.profilePic;
+    let sampleFile = user.pp;
     const p = req.cookies['up'];
-    console.log(sampleFile.name);
     sampleFile.mv(p+'/sampleFile.jpg', function(err) {
         if (err)
         return res.status(500).send(err);
@@ -71,28 +71,22 @@ router.post("/profile", (req,res)=>{  //POST : /admin/profile
 
 
     res.cookie('uname', user.email)
-
-    userModel.updateAdmin(user,uid,status=>{
-        if(status){
             adminModel.updateAdmin(user,id,status=>{
                 if (status) {
                     res.redirect('/admin')
                 }//else needed some work
             })
-        }
-    })
-    
 })
 
 router.get("/customer", (req,res)=>{
-    res.render('admin/customer')
+    res.render('admin/customer',{loogedName: req.cookies['uname']})
 })
 
 router.get("/verifySeller", (req,res)=>{
-    res.render('admin/verifySeller')
+    res.render('admin/verifySeller',{loogedName: req.cookies['uname']})
 })
 router.get("/report", (req,res)=>{
-    res.render('admin/report')
+    res.render('admin/report',{loogedName: req.cookies['uname']})
 })
 
 
