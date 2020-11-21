@@ -111,7 +111,19 @@ router.get("/customer", (req,res)=>{
 })
 
 router.get("/verifySeller", (req,res)=>{
-    res.render('admin/verifySeller',{loogedName: req.cookies['uname']})
+    userModel.getSeller(result=>{
+        const seller = result;
+        res.render('admin/verifySeller',{sellerInfo:seller,loogedName: req.cookies['uname']})
+    })
+    
+})
+
+router.get("/verifySeller/:id", (req,res)=>{
+    const sid = req.params.id;
+    userModel.verifySeller(sid,result=>{
+        res.redirect('/admin/verifySeller')
+    })
+    
 })
 router.get("/report", (req,res)=>{
     res.render('admin/report',{loogedName: req.cookies['uname']})

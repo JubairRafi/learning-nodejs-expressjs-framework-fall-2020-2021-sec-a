@@ -89,6 +89,16 @@ module.exports = {
 					}
 				})
 			},
+		verifySeller:function(sid,callback){
+			var sql = "update sellerpi set verified='"+1+"' where user_id='"+sid+"'";
+			console.log(sql);
+		
+			  db.execute(sql, results=>{
+					
+						callback(results)
+					
+			  })
+			}
 	
 
  }
