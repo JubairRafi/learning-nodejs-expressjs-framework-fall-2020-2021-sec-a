@@ -44,7 +44,15 @@ module.exports = {
 					}
 			  })
 	
-			}
+			},
+			addEvent:function(event,callback){
+				var sql = "insert into event values('','"+event.name+"', '"+event.description+"')";
+						  
+					db.execute(sql, status=>{
+						callback(status)
+				  })
+			
+				}
 		
 		
 

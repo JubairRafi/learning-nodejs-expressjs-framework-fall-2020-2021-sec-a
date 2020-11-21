@@ -7,6 +7,14 @@ const userModel = require.main.require("./models/userModel")
 
 //route root : /admin/retailManager
 
+router.get('*',(req,res,next)=>{    // GET : (*)
+	if(req.cookies['uname'] == null){
+		res.redirect("/login")
+	}else{
+		next()
+	}
+})
+
 router.get("/",(req,res)=>{
     userModel.getRetailseller(result=>{
         const retailseller = result;

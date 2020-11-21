@@ -1,6 +1,7 @@
 const express = require("express")
 const { Result } = require("express-validator")
 const fileUpload = require('express-fileupload')
+const fs = require('fs')
 const router = express.Router()
 const event = require.main.require("./controllers/event")
 const seller = require.main.require("./controllers/seller")
@@ -34,7 +35,10 @@ router.get('*',(req,res,next)=>{    // GET : (*)
 
 
 router.get("/",(req,res)=>{
-    res.render("admin/index",{loogedName: req.cookies['uname']})
+    const data = fs.readFileSync('./models/admin/runningevent.json')
+    const jsonEventData= JSON.parse(data);
+    
+    res.render("admin/index",{runningEvent:jsonEventData,loogedName: req.cookies['uname']})
 })
 
 // router.get("/registration", (req,res)=>{

@@ -6,6 +6,14 @@ const router = express.Router()
 
 //route root : /admin/seller
 
+router.get('*',(req,res,next)=>{    // GET : (*)
+	if(req.cookies['uname'] == null){
+		res.redirect("/login")
+	}else{
+		next()
+	}
+})
+
 router.get("/",(req,res)=>{
     userModel.getSeller(result=>{
         if (result) {
