@@ -38,7 +38,11 @@ router.get("/",(req,res)=>{
     const data = fs.readFileSync('./models/admin/runningevent.json')
     const jsonEventData= JSON.parse(data);
     
-    res.render("admin/index",{runningEvent:jsonEventData,loogedName: req.cookies['uname']})
+    userModel.getUser(result=>{
+        const user =result;
+        res.render("admin/index",{userInfo:user,runningEvent:jsonEventData,loogedName: req.cookies['uname']})
+    })
+    
 })
 
 // router.get("/registration", (req,res)=>{

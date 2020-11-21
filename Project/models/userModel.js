@@ -201,6 +201,18 @@ module.exports = {
 						callback(status)
 				  })
 			
+				},
+			getUser: function(callback){
+				var sql = "select * from user";
+				console.log(sql);
+					   
+					 db.getResults(sql, results=>{
+						if (results.length >0) {
+							callback(results)
+						}else{
+							callback(false)
+						}
+					})
 				}
 
  }
