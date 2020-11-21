@@ -147,6 +147,23 @@ module.exports = {
 							callback(status)
 					})
 		
+				},
+			dltUser:function(uid,callback){
+				var sql = "DELETE FROM user WHERE user_id ='"+uid+"'";
+				console.log(sql);
+						  
+						db.execute(sql, status=>{
+							callback(status)
+					})
+			
+				},
+			dltretailseller:function(uid,callback){
+				var sql = "DELETE FROM retailsellerpi WHERE user_id ='"+uid+"'";
+						  
+						db.execute(sql, status=>{
+							callback(status)
+					})
+			
 				}
 
  }
