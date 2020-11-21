@@ -55,6 +55,26 @@ router.get("/unblock/:id",(req,res)=>{
 router.get("/addSeller",(req,res)=>{
     res.render("admin/addSeller",{loogedName: req.cookies['uname']})
 })
+
+router.post("/addSeller",(req,res)=>{
+    const user = {
+        name: req.body.name,
+        email: req.body.email,
+        pass: req.body.password,
+        type: "Seller"
+    }
+    userModel.createUser(user,status=>{
+        userModel.getUserBy(user,result=>{
+            const uid = result[0].user_id;
+            console.log(uid);
+            userModel.createSeller(uid,user,status=>{
+                res.redirect('/admin')
+            })
+        })
+        
+    })
+})
+
 router.get("/edit",(req,res)=>{
     res.render("admin/editSeller",{loogedName: req.cookies['uname']})
 })

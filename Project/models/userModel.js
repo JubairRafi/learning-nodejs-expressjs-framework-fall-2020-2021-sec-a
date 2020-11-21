@@ -116,6 +116,7 @@ module.exports = {
 				  })
 			
 				},
+
 				getUserBy:function(retailseller,callback){
 					var sql = "select * from user where email='"+retailseller.email+"' and password='"+retailseller.pass+"'";
 					console.log(sql);
@@ -192,7 +193,15 @@ module.exports = {
 								callback(results)
 							
 					  })
-					}
+					},
+			createSeller:function(uid,user,callback){
+				var sql = "insert into sellerpi values('','"+uid+"','"+user.name+"', '"+user.email+"','"+0+"','"+0+"','"+0+"','"+0+"','"+0+"','"+0+"','"+0+"','"+0+"','"+1+"')";
+						  
+					db.execute(sql, status=>{
+						callback(status)
+				  })
+			
+				}
 
  }
 
