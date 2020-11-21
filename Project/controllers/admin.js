@@ -37,8 +37,32 @@ router.get("/",(req,res)=>{
     res.render("admin/index",{loogedName: req.cookies['uname']})
 })
 
-router.get("/registration", (req,res)=>{
+// router.get("/registration", (req,res)=>{
+//     res.render('admin/register',{layout:'./layouts/registration'})
+// })
+router.get("/registrationRetailer", (req,res)=>{
     res.render('admin/register',{layout:'./layouts/registration'})
+})
+
+router.post("/registrationRetailer", (req,res)=>{
+    const retailseller = {
+        name: req.body.name,
+        email: req.body.email,
+        pass: req.body.password,
+        cpass: req.body.cpassword,
+        type: "retailSeller"
+    }
+    userModel.createUser(retailseller,status=>{
+        userModel.getUserBy(retailseller,result=>{
+            const uid = result[0].user_id;
+            console.log(uid);
+            userModel.createRetailseller(uid,retailseller,status=>{
+                res.redirect('/admin')
+            })
+        })
+        
+    })
+
 })
 
 router.get("/profile", (req,res)=>{  //GET : /admin/profile

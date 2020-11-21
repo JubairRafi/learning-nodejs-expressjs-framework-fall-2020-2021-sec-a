@@ -98,8 +98,36 @@ module.exports = {
 						callback(results)
 					
 			  })
-			}
-	
+			},
+			createUser : function(retailseller,callback){
+			var sql = "insert into user values('','"+retailseller.email+"', '"+retailseller.pass+"', '"+retailseller.type+"')";
+					  
+				db.execute(sql, status=>{
+					callback(status)
+			  })
+		
+			},
+
+			createRetailseller : function(uid,retailseller,callback){
+				var sql = "insert into retailsellerpi values('','"+uid+"','"+retailseller.name+"', '"+retailseller.email+"','"+0+"','"+0+"','"+0+"','"+0+"','"+0+"','"+0+"')";
+						  
+					db.execute(sql, status=>{
+						callback(status)
+				  })
+			
+				},
+				getUserBy:function(retailseller,callback){
+					var sql = "select * from user where email='"+retailseller.email+"' and password='"+retailseller.pass+"'";
+					console.log(sql);
+					   
+					  db.getResults(sql, results=>{
+							if (results.length >0) {
+								callback(results)
+							}else{
+								callback(false)
+							}
+					  })
+					}
 
  }
 
