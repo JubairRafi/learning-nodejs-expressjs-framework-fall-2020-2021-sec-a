@@ -64,7 +64,31 @@ module.exports = {
 						callback(results)
 					
 			  })
-			}
+			},
+		getSeller :function(callback){
+			var sql = "select * from sellerpi";
+			console.log(sql);
+			   
+			  db.getResults(sql, results=>{
+					if (results.length >0) {
+						callback(results)
+					}else{
+						callback(false)
+					}
+			  })
+			},
+		getRetailseller :function(callback){
+			var sql = "select * from retailsellerpi";
+			console.log(sql);
+				   
+				 db.getResults(sql, results=>{
+					if (results.length >0) {
+						callback(results)
+					}else{
+						callback(false)
+					}
+				})
+			},
 	
 
  }

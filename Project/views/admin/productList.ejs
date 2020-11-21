@@ -53,34 +53,35 @@
                                         </tfoot>
                                         <tbody>
                                             <%productInfo.forEach(product=>{%>
-                                                <% pModel.getProductOwnerS(product,result=>{ %>
-                                                    <% if(result){%>
-                                                            <%  owner =result[0] %>
-                                                        <%  }else{%>
-                                                                <% pModel.getProductOwnerR(product,result=>{%>
-                                                                        <%  owner =result[0] %>
-                                                                <%}) %> 
-                                                            <%} %> 
-                                                <%  }) %>
                                                 
-                                                <% pModel.getCatagory(product,result=>{ %>
-                                                    <% if(result){%>
-                                                        <% console.log("catagory",result[0]) %> 
-
-                                                           <% catagory = result[0] %> 
-                                                        <%} %> 
-
-                                              <%  }) %> 
-                
+                                              
                                                 <tr>
                                                     <td><%=  product.product_name %> </td>
-                                                    <td><%=  catagory.catagory_name  %> </td>
+
+                                                    <% catagoryInfo.forEach(c=>{ %>
+                                                        <% console.log("catagory",c.catagory_id) %> 
+                                                        <% console.log("product",product.catagory_id) %> 
+                                                        <% if(c.catagory_id == product.catagory_id){%>
+                                                            <td><%=  c.catagory_name  %> </td>
+                                                            
+                                                            <%}%>
+                                                   <% }) %> 
+
                                                     <td><%=  product.quantity %></td>
                                                     <td><%=  product.description %></td>
                                                     <td><%=  product.price %></td>
                                                    
-
-                                                    <td><%=  owner.name %></td>
+                                                    <% sellerInfo.forEach(s=>{%>
+                                                        <% if(s.user_id == product.user_id){%>
+                                                            <td><%=  s.name %></td>
+                                                            <%}%>
+                                                        <%}) %> 
+                                                    <% retailsellerInfo.forEach(r=>{%>
+                                                        <% if(r.user_id==product.user_id){%>
+                                                            <td><%=  r.name %></td>
+                                                            <%} %> 
+                                                        <%}) %>
+                                                    
                                                         
                                                 </tr>
 

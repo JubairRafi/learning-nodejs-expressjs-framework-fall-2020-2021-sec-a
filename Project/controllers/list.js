@@ -1,5 +1,6 @@
 const express = require("express")
 const productModel = require.main.require("./models/productModel")
+const userModel = require.main.require("./models/userModel")
 const router = express.Router()
 
 
@@ -16,8 +17,24 @@ router.get('*',(req,res,next)=>{    // GET : (*)
 
 router.get("/product",(req,res)=>{
     productModel.getProduct(results=>{ 
-        res.render("admin/productList",{productInfo:results,pModel:productModel,loogedName: req.cookies['uname']})
+        const products = results;
+          productModel.getAllCatagory(results=>{
+            const catagorys = results;
+
+            userModel.getSeller(results=>{
+                const seller = results;
+
+                userModel.getRetailseller(results=>{
+                    const retailseller = results;
+                    res.render("admin/productList",{productInfo:products,catagoryInfo:catagorys,sellerInfo:seller,retailsellerInfo:retailseller,pModel:productModel,loogedName: req.cookies['uname']})
+
+                })
+            })
+        })
+    
+  
     })
+    
     
 })
 router.get("/catagory",(req,res)=>{
