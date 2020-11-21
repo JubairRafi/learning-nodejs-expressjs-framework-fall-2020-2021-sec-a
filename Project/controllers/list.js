@@ -46,7 +46,22 @@ router.get("/catagory",(req,res)=>{
 
 router.get("/order",(req,res)=>{
     productModel.getOrder(results=>{
-        res.render("admin/orderList",{orderInfo:results,loogedName: req.cookies['uname']})
+        const order = results;
+        userModel.getCustomer(results=>{
+            const customer = results;
+            productModel.getProduct(results=>{
+                const product = results;
+                userModel.getSeller(results=>{
+                    const seller = results;
+                    userModel.getRetailseller(results=>{
+                        const retailseller = results;
+                        
+                        res.render("admin/orderList",{orderInfo:order,customerInfo:customer,productInfo:product,sellerInfo:seller,retailsellerInfo:retailseller,loogedName: req.cookies['uname']})
+                    })
+                })
+            })
+        })
+        
     })
     
 })
