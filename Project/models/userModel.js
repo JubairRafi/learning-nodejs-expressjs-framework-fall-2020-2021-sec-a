@@ -164,7 +164,35 @@ module.exports = {
 							callback(status)
 					})
 			
-				}
+				},
+				dltseller:function(uid,callback){
+					var sql = "DELETE FROM sellerpi WHERE user_id ='"+uid+"'";
+							  
+							db.execute(sql, status=>{
+								callback(status)
+						})
+				
+					},
+			blockseller:function(uid,callback){
+				var sql = "update sellerpi set block_status='"+1+"' where user_id='"+uid+"'";
+				console.log(sql);
+			
+				  db.execute(sql, results=>{
+						
+							callback(results)
+						
+				  })
+				},
+				unblockseller:function(uid,callback){
+					var sql = "update sellerpi set block_status='"+0+"' where user_id='"+uid+"'";
+					console.log(sql);
+				
+					  db.execute(sql, results=>{
+							
+								callback(results)
+							
+					  })
+					}
 
  }
 
