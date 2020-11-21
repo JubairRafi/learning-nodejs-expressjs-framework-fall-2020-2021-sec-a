@@ -32,7 +32,19 @@ module.exports = {
 				callback(status)
 		  })
 	
-		}
+		},
+		pastEvent:function(callback){
+			var sql = "select * from event";
+				  
+			  db.getResults(sql, results=>{
+					if (results.length >0) {
+						callback(results)
+					}else{
+						callback(false)
+					}
+			  })
+	
+			}
 		
 		
 

@@ -1,12 +1,21 @@
 const express = require("express")
+const { Result } = require("express-validator")
 const router = express.Router()
 
+
+const adminModel = require.main.require("./models/adminModel")
 
 //route root : /admin/event
 
 router.get("/",(req,res)=>{
+    adminModel.pastEvent(result=>{
+        const event = result;
+        if (result) {
+            res.render("admin/pastEvent",{eventInfo:event,loogedName: req.cookies['uname']})
+        }
+    })
 
-    res.render("admin/pastEvent",{loogedName: req.cookies['uname']})
+    
 })
 
 
