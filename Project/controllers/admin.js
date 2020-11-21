@@ -150,7 +150,30 @@ router.get("/verifySeller/:id", (req,res)=>{
     
 })
 router.get("/report", (req,res)=>{
-    res.render('admin/report',{loogedName: req.cookies['uname']})
+    userModel.getReport(result=>{
+        const report = result;
+        userModel.getCustomer(result=>{
+            const customer = result;
+            userModel.getSeller(result=>{
+                const seller = result;
+                userModel.getRetailseller(result=>{
+                    const retailseller = result;
+                    res.render('admin/report',{reportInfo:report,customerInfo:customer,sellerInfo:seller,retailsellerInfo:retailseller,loogedName: req.cookies['uname']})
+                })
+            })
+        })
+    })
+    
+})
+
+router.get("/report/delete/:id",(req,res)=>{
+    const id = req.params.id;
+    userModel.dltReport(id,status=>{
+        if (status) {
+            res.redirect("/admin")
+        }
+        
+    })
 })
 
 

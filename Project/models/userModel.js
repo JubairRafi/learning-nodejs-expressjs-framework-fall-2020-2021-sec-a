@@ -127,7 +127,27 @@ module.exports = {
 								callback(false)
 							}
 					  })
-					}
+					},
+			getReport:function(callback){
+				var sql = "select * from report";
+				console.log(sql);
+					   
+					 db.getResults(sql, results=>{
+						if (results.length >0) {
+							callback(results)
+						}else{
+							callback(false)
+						}
+					})
+				},
+			dltReport:function(id,callback){
+				var sql = "DELETE FROM report WHERE report_id = '"+id+"'";
+					  
+						db.execute(sql, status=>{
+							callback(status)
+					})
+		
+				}
 
  }
 
