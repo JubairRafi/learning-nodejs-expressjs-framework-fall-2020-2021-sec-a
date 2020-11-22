@@ -1,5 +1,5 @@
 const express = require("express")
-const { Result } = require("express-validator")
+const { check, validationResult} = require('express-validator'); 
 const fileUpload = require('express-fileupload')
 const fs = require('fs')
 const router = express.Router()
@@ -51,6 +51,34 @@ router.get("/",(req,res)=>{
 router.get("/registrationRetailer", (req,res)=>{
     res.render('admin/register',{layout:'./layouts/registration'})
 })
+
+router.post("/registrationRetailer",[				  //POST : 
+    check('name','name must be atleast 5+ character long')
+        .exists()
+        .isLength({min:5}),
+	
+    check('email','Must be a vaid Email')
+        .exists()
+        .isEmail(),
+    check('password','password must be atleast 5+ character long')
+        .exists()
+        .isLength({min:5}),
+    check('password','password must be atleast 5+ character long')
+        .exists()
+        .isLength({min:5})
+        
+	],(req, res,next)=>{
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+            // return res.status(400).json({ errors: errors.array() });
+            const alert = errors.array();
+            res.render('admin/register',{alert,layout:'./layouts/registration'})
+		}else{
+			next()
+		}
+	
+	})
 
 router.post("/registrationRetailer", (req,res)=>{
     const retailseller = {

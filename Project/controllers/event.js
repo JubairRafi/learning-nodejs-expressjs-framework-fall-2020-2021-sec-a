@@ -1,5 +1,5 @@
 const express = require("express")
-const { Result } = require("express-validator")
+const { check, validationResult} = require('express-validator'); 
 const fs = require('fs')
 const router = express.Router()
 
@@ -7,6 +7,27 @@ const router = express.Router()
 const adminModel = require.main.require("./models/adminModel")
 
 //route root : /admin/event
+
+router.post("*",[				  //POST : ("*")
+    check('name','name must be atleast 5+ character long')
+        .exists()
+        .isLength({min:5}),
+	
+    check('description','description must be atleast 8+ character long')
+        .exists()
+        .isLength({ min: 8 })
+	],(req, res,next)=>{
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+            // return res.status(400).json({ errors: errors.array() });
+            const alert = errors.array();
+            res.render('admin/addEvent',{alert,loogedName: req.cookies['uname']})
+		}else{
+			next()
+		}
+	
+	})
 
 router.get('*',(req,res,next)=>{    // GET : (*)
 	if(req.cookies['uname'] == null){
