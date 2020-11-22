@@ -50,7 +50,7 @@
                                                     <td><%= s.name %> </td>
                                                     <td><%= s.email %></td>
                                                     <td><%= s.address %></td>
-                                                    <td><%= s.dob %></td>
+                                                    <td><%= moment(s.dob).format(shortDateFormat) %></td>
                                                     <td><%= s.phone_no %></td>
                                                     <td><%= s.level %></td>
                                                     <td> <a class="btn btn-danger"  href="/admin/seller/delete/<%= s.user_id %>">Delete</a></td>

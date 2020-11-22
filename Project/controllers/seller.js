@@ -3,6 +3,9 @@ const { check, validationResult} = require('express-validator');
 const userModel = require.main.require("./models/userModel")
 const router = express.Router()
 
+var moment = require('moment');
+var shortDateFormat = "YYYY-MM-DD"; 
+
 
 //route root : /admin/seller
 
@@ -17,7 +20,7 @@ router.get('*',(req,res,next)=>{    // GET : (*)
 router.get("/",(req,res)=>{
     userModel.getSeller(result=>{
         if (result) {
-            res.render("admin/sellerList",{sellerInfo:result,loogedName: req.cookies['uname']})
+            res.render("admin/sellerList",{moment: moment,shortDateFormat:shortDateFormat,sellerInfo:result,loogedName: req.cookies['uname']})
         }
         
     })

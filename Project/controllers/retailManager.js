@@ -1,6 +1,9 @@
 const express = require("express")
 const { Result } = require("express-validator")
 const router = express.Router()
+var moment = require('moment');
+var shortDateFormat = "YYYY-MM-DD"; 
+
 
 //controler
 const userModel = require.main.require("./models/userModel")
@@ -19,7 +22,7 @@ router.get("/",(req,res)=>{
     userModel.getRetailseller(result=>{
         const retailseller = result;
         if (result) {
-            res.render("admin/retailManagerList",{retailsellerInfo:retailseller,loogedName: req.cookies['uname']})
+            res.render("admin/retailManagerList",{moment: moment,shortDateFormat:shortDateFormat,retailsellerInfo:retailseller,loogedName: req.cookies['uname']})
         }
     })
     
