@@ -4,7 +4,7 @@ const fileUpload = require('express-fileupload')
 const fs = require('fs')
 const router = express.Router()
 const event = require.main.require("./controllers/event")
-const seller = require.main.require("./controllers/seller")
+const seller = require.main.require("./controllers/sellerA")
 const retailManager = require.main.require("./controllers/retailManager")
 const list = require.main.require("./controllers/list")
 

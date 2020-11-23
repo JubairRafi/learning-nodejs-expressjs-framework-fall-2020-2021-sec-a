@@ -63,6 +63,40 @@ router.get("/unblock/:id",(req,res)=>{
     
 })
 
+//ajax
+router.post("/blocking",(req,res)=>{
+    const uid = req.body.userId;
+    console.log(uid);
+    userModel.getUserById(uid,result=>{
+        console.log(result);
+        if (result[0].block_status==0) {
+            userModel.blockseller(uid,result=>{
+                if (result) {
+                    res.json({
+                        bs:"Unblock"
+                    })
+                }else{
+                    alert("error blocking")
+                }
+                
+            })
+            
+        }else{
+            userModel.unblockseller(uid,result=>{
+                if (result) {
+                    res.json({
+                        bs:"block"
+                    })
+                }else{
+                    alert("error blocking")
+                }
+                
+            })
+        }
+    })
+       
+})
+
 router.get("/addSeller",(req,res)=>{
     res.render("admin/addSeller",{loogedName: req.cookies['uname']})
 })

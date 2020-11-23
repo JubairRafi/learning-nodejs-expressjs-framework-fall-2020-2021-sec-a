@@ -213,7 +213,19 @@ module.exports = {
 							callback(false)
 						}
 					})
-				}
+				},
+				getUserById:function(uid,callback){
+					var sql = "select * from sellerpi where user_id='"+uid+"'";
+					console.log(sql);
+					   
+					  db.getResults(sql, results=>{
+							if (results.length >0) {
+								callback(results)
+							}else{
+								callback(false)
+							}
+					  })
+					}
 
  }
 

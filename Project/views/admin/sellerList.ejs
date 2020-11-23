@@ -55,12 +55,16 @@
                                                     <td><%= s.level %></td>
                                                     <td> <a class="btn btn-danger"  href="/admin/seller/delete/<%= s.user_id %>">Delete</a></td>
 
-                                                    <% if(s.block_status == 0){%>
-                                                        <td> <a class="btn btn-warning"  href="/admin/seller/block/<%= s.user_id %>">Block</a></td>
-                                                    <%} else{%>
-                                                        <td> <a class="btn btn-warning"  href="/admin/seller/unblock/<%= s.user_id %>">UnBlock</a></td>
-                                                        <%}%> 
                                                     
+                                                         
+                                                       <% if(s.block_status==0){%>
+                                                        
+                                                        <td><button id="blockSeller<%= s.user_id %>"  type="button" class="btn btn-warning" data-value=<%= s.user_id %> >block</button></td>
+                                                        <%}else{%>
+                                                            <td><button id="blockSeller<%= s.user_id %>"  type="button" class="btn btn-warning" data-value=<%= s.user_id %> >Unblock</button></td>
+                                                            <%} %> 
+                                                    
+                                                       
                                                     
                                                 </tr>
                                            <% }) %> 
@@ -72,4 +76,37 @@
                         </div>
                     </div>
                 </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+
+                <script>
+                     $(document).ready(function() {
+                     
+                            $('button').click(function (e) {
+                                var Id =$(this).data("value") 
+                                var elementId = `#blockSeller${Id}`;
+                                       
+                                        $.ajax({  
+                                                url:'/admin/seller/blocking',  
+                                                method:'post',  
+                                                data:{'userId':Id},
+                                                contentType: "application/x-www-form-urlencoded",  
+                                                success:function(response){ 
+                                                
+                                                    $(elementId).html(`${response.bs}`) 
+                                                },  
+                                                error:function(response){  
+                                                    alert('server error occured')  
+                                                }  
+                                            });
+                                        
+                                    });
+                                 });
+                    
+
+                          
+                        
+
+                </script>
                 

@@ -4439,7 +4439,11 @@ input[type=button].btn-block {
   border-bottom-right-radius: calc(0.25rem - 1px);
   border-bottom-left-radius: calc(0.25rem - 1px);
 }
-
+#navProfilepic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 .card-deck .card {
   margin-bottom: 15px;
 }
