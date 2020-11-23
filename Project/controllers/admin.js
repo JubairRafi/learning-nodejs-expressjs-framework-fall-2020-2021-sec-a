@@ -1,7 +1,9 @@
 const express = require("express")
 const { check, validationResult} = require('express-validator'); 
 const fileUpload = require('express-fileupload')
-const fs = require('fs')
+const moment = require('moment')
+const fs = require('fs');
+const { report } = require("./sellerA");
 const router = express.Router()
 const event = require.main.require("./controllers/event")
 const seller = require.main.require("./controllers/sellerA")
@@ -11,8 +13,9 @@ const list = require.main.require("./controllers/list")
 //models
 const adminModel = require.main.require("./models/admin/adminModel")
 const userModel = require.main.require("./models/admin/userModel")
+const productModel = require("../models/admin/productModel");
 
-
+var shortDateFormat = "YYYY-MM-DD";
 
 //controllers
 router.use("/event",event)
@@ -244,6 +247,48 @@ router.post("/report/delete",(req,res)=>{
         }
         
     })
+})
+
+router.get('/revenue',(req,res)=>{
+  
+        var d = new Date();
+       
+       const revDate = {
+           priviousMonth:moment(d.setMonth(d.getMonth() - 1)).format('MMMM'),
+           priviousMonth1:moment(d.setMonth(d.getMonth() - 1)).format('MMMM'),
+           priviousMonth2:moment(d.setMonth(d.getMonth() - 1)).format('MMMM')
+       }
+       var month1Rev = 0;
+       var month2Rev = 0;
+       var month3Rev = 0;
+     
+       productModel.getrev(result=>{
+      if (result) {
+          const rd = result;
+          rd.forEach(r=>{
+              if(revDate.priviousMonth==moment(r.month).format('MMMM')){
+                 
+                month1Rev=month1Rev+r.revenue;
+                // month1Rev.push(r.revenue);
+              }else if(revDate.priviousMonth1==moment(r.month).format('MMMM')){
+                month2Rev=month2Rev+r.revenue;
+              }else{
+                month3Rev=month3Rev+r.revenue;
+              }
+          })
+
+          const rev = {
+              month1:month1Rev,
+              month2:month2Rev,
+              month3:month3Rev
+          }
+          console.log(rev,revDate);
+          
+          res.render('admin/revenueChart',{rev:rev,revDate:revDate,loogedName: req.cookies['uname']})
+      }
+  })
+  
+ 
 })
 
 module.exports = router;
