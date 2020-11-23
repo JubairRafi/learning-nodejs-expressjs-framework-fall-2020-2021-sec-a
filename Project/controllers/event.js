@@ -4,7 +4,7 @@ const fs = require('fs')
 const router = express.Router()
 
 
-const adminModel = require.main.require("./models/adminModel")
+const adminModel = require.main.require("./models/admin/adminModel")
 
 //route root : /admin/event
 

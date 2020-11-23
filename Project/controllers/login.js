@@ -1,7 +1,7 @@
 
 const express = require("express")
 const { body, validationResult} = require('express-validator'); 
-const adminModel = require("../models/adminModel");
+const adminModel = require("../models/admin/adminModel");
 const router 	= express.Router();
 
 router.post("*",[				  //POST : ("*")

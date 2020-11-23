@@ -1,6 +1,6 @@
 const express = require("express")
-const productModel = require.main.require("./models/productModel")
-const userModel = require.main.require("./models/userModel")
+const productModel = require.main.require("./models/admin/productModel")
+const userModel = require.main.require("./models/admin/userModel")
 const router = express.Router()
 
 

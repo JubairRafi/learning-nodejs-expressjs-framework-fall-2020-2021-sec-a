@@ -9,8 +9,8 @@ const retailManager = require.main.require("./controllers/retailManager")
 const list = require.main.require("./controllers/list")
 
 //models
-const adminModel = require.main.require("./models/adminModel")
-const userModel = require.main.require("./models/userModel")
+const adminModel = require.main.require("./models/admin/adminModel")
+const userModel = require.main.require("./models/admin/userModel")
 
 
 

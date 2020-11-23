@@ -6,7 +6,7 @@ var shortDateFormat = "YYYY-MM-DD";
 
 
 //controler
-const userModel = require.main.require("./models/userModel")
+const userModel = require.main.require("./models/admin/userModel")
 
 //route root : /admin/retailManager
 
