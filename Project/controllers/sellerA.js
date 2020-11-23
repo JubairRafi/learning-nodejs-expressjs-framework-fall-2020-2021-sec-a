@@ -39,29 +39,32 @@ router.get("/delete/:id",(req,res)=>{
     })
     
 })
-
-router.get("/block/:id",(req,res)=>{
-    const uid = req.params.id;
-    userModel.blockseller(uid,result=>{
-      if (result) {
-        res.redirect('/admin/seller')
-      }
-         
+router.post("/delete",(req,res)=>{
+    const uid = req.body.userId;
+    console.log(uid);
+    userModel.dltseller(uid,result=>{
+        if (result) {
+            userModel.dltUser(uid,result=>{
+                if (result) {
+                    res.json({
+                        sd:"seller deleted"
+                    })
+                }else{
+                    res.json({
+                        sd:"seller not deleted"
+                    })
+                }
+            })
+        }else{
+            res.json({
+                sd:"seller have events warn him first"
+            })
+        }
     })
-   
     
 })
 
-router.get("/unblock/:id",(req,res)=>{
-    const uid = req.params.id;
-    userModel.unblockseller(uid,result=>{
-      if (result) {
-        res.redirect('/admin/seller')
-      }
-         
-    })
-    
-})
+
 
 //ajax
 router.post("/blocking",(req,res)=>{

@@ -178,10 +178,29 @@ router.get("/verifySeller", (req,res)=>{
     
 })
 
+
 router.get("/verifySeller/:id", (req,res)=>{
     const sid = req.params.id;
     userModel.verifySeller(sid,result=>{
         res.redirect('/admin/verifySeller')
+    })
+    
+})
+
+router.post("/verifySeller", (req,res)=>{
+    const sid = req.body.userId;
+    console.log(sid);
+    userModel.verifySeller(sid,result=>{
+        if (result) {
+            res.json({
+                sv:"seller verification Done"
+            })
+        }else{
+            res.json({
+                sv:"seller verification failed"
+            })
+        }
+       
     })
     
 })
@@ -211,6 +230,20 @@ router.get("/report/delete/:id",(req,res)=>{
         
     })
 })
-
+router.post("/report/delete",(req,res)=>{
+    const id = req.body.userId;
+    userModel.dltReport(id,status=>{
+        if (status) {
+            res.json({
+                r:"reported"
+            })
+        }else{
+            res.json({
+                r:"report deleted"
+            })
+        }
+        
+    })
+})
 
 module.exports = router;

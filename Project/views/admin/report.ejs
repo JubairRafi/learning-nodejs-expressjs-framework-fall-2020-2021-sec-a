@@ -7,6 +7,9 @@
                             <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                             <li class="breadcrumb-item active">verification</li>
                         </ol>
+                        <div id="dlt" class="">
+                            
+                        </div>
                         <!-- <div class="card mb-4">
                             <div class="card-body">
                                 DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
@@ -39,9 +42,10 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <tr>
+                                            
                                                 <!-- reporting user -->
                                             <% reportInfo.forEach(report=>{%>
+                                            <tr id="dltReport<%= report.report_id%>">
                                                 <% customerInfo.forEach(c=>{%>
                                                     <% if(c.user_id == report.fromuser){%>
                                                         <td><%=  c.name %></td>
@@ -81,10 +85,11 @@
                                                     <%}) %>
                                                     <td><%= report.report_msg %> </td>
 
-                                                    <td> <a class="btn btn-danger" href="/admin/report/delete/<%= report.report_id %>">Delete</a></td>
+                                            
+                                                    <td><button   type="button" class="btn btn-danger" data-value=<%= report.report_id %> >Delete</button></td>
                                                 </tr>
 
-                                                <%}) %> 
+                                         <%}) %> 
                                         </tbody>
                                     </table>
                                 </div>
@@ -92,4 +97,41 @@
                         </div>
                     </div>
                 </main>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+                <script>
+                    $(document).ready(function() {
+                    
+                        $('button').click(function (e) {
+                               var Id =$(this).data("value") 
+                               var elementId = `#dltReport${Id}`;
+                              
+                                      
+                                       $.ajax({  
+                                               url:'/admin/report/delete',  
+                                               method:'post',  
+                                               data:{'userId':Id},
+                                               contentType: "application/x-www-form-urlencoded",  
+                                               success:function(response){ 
+                                                   
+                                                $(elementId).remove();
+                                                    setTimeout(()=> { 
+                                                       $('#dlt').addClass('alert alert-success')
+                                                       $('.alert').append(`${response.r}`);
+                                                       setTimeout(() => {
+                                                           $('#dlt').removeClass('alert alert-success');
+                                                           $('#dlt').empty();
+                                                       }, 1500);
+                                                    }, 200);
+                                               },  
+                                               error:function(response){  
+                                                   alert(response.r)  
+                                               }  
+                                           });
+                                       
+                                   });
+                                });
+                   
+
+               </script>
                 

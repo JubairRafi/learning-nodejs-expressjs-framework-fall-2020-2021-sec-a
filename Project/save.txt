@@ -1,5 +1,0 @@
-<% if(s.block_status == 0){%>
-                                                        <td id="block"> <a class="btn btn-warning"  href="/admin/seller/block/<%= s.user_id %>">Block</a></td>
-                                                    <%} else{%>
-                                                        <td> <a class="btn btn-warning"  href="/admin/seller/unblock/<%= s.user_id %>">UnBlock</a></td> 
-                                                        <%}%>

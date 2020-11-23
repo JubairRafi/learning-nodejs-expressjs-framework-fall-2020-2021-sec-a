@@ -1,5 +1,6 @@
 
  
+    
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Seller List</h1>
@@ -7,6 +8,14 @@
                             <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                             <li class="breadcrumb-item active">seller</li>
                         </ol>
+
+                        <div id="dlt" class="">
+                            
+                        </div>
+                        
+                        <!-- <div class="alert alert-success" role="alert">
+                            A simple success alert—check it out!
+                          </div> -->
                         <!-- <div class="card mb-4">
                             <div class="card-body">
                                 DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
@@ -46,14 +55,15 @@
                                         </tfoot>
                                         <tbody>
                                             <% sellerInfo.forEach(s=>{ %>
-                                                <tr>
+                                                <tr id="dlt<%= s.user_id %>">
                                                     <td><%= s.name %> </td>
                                                     <td><%= s.email %></td>
                                                     <td><%= s.address %></td>
                                                     <td><%= moment(s.dob).format(shortDateFormat) %></td>
                                                     <td><%= s.phone_no %></td>
                                                     <td><%= s.level %></td>
-                                                    <td> <a class="btn btn-danger"  href="/admin/seller/delete/<%= s.user_id %>">Delete</a></td>
+                                                    
+                                                    <td><input id="dltSeller<%= s.user_id %>"  type="button" class="btn btn-danger" data-value=<%= s.user_id %> value="Delete"\></td>
 
                                                     
                                                          
@@ -93,8 +103,9 @@
                                                 data:{'userId':Id},
                                                 contentType: "application/x-www-form-urlencoded",  
                                                 success:function(response){ 
-                                                
-                                                    $(elementId).html(`${response.bs}`) 
+                                                    
+                                                    $(elementId).html(`${response.bs}`)
+                                                    
                                                 },  
                                                 error:function(response){  
                                                     alert('server error occured')  
@@ -102,11 +113,36 @@
                                             });
                                         
                                     });
+
+                                    $('input').click(function (e) {
+                                            var Id =$(this).data("value") 
+                                            var elementId = `#dlt${Id}`;
+                                            
+                                       
+                                        $.ajax({  
+                                                url:'/admin/seller/delete',  
+                                                method:'post',  
+                                                data:{'userId':Id},
+                                                contentType: "application/x-www-form-urlencoded",  
+                                                success:function(response){ 
+                                                    
+                                                    $(elementId).remove()
+                                                     setTimeout(()=> { 
+                                                        $('#dlt').addClass('alert alert-warning')
+                                                        $('.alert').append(`${response.sd}`);
+                                                        setTimeout(() => {
+                                                            $('.alert').remove();
+                                                        }, 1500);
+                                                     }, 200);
+                                                },  
+                                                error:function(response){  
+                                                    alert(response.sd)  
+                                                }  
+                                            });
+                                        
+                                    });
                                  });
                     
-
-                          
-                        
 
                 </script>
                 
