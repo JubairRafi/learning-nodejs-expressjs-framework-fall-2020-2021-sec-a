@@ -52,7 +52,15 @@ module.exports = {
 						callback(status)
 				  })
 			
-				}
+				},
+				createAdmin: function(admin,callback){
+					var sql = "insert into adminpi values('','"+admin.name+"', '"+admin.email+"', '"+admin.pass+"','"+0+"','"+0+"')";
+							  
+						db.execute(sql, status=>{
+							callback(status)
+					  })
+				
+					}
 		
 		
 

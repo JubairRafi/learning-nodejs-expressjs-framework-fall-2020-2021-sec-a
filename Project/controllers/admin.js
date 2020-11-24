@@ -318,4 +318,58 @@ router.get('/printingRepo',(req, res)=>{
 
 })
 
+router.get("/adminRegi",(req,res)=>{
+    
+    
+            res.render("admin/Adregister",{loogedName: req.cookies['uname']})
+     
+})
+
+router.post("/adminRegi",[				  //POST : 
+    check('name','name must be atleast 5+ character long')
+        .exists()
+        .isLength({min:5}),
+	
+    check('email','Must be a vaid Email')
+        .exists()
+        .isEmail(),
+    check('password','password must be atleast 5+ character long')
+        .exists()
+        .isLength({min:5}),
+    check('password','password must be atleast 5+ character long')
+        .exists()
+        .isLength({min:5})
+        
+	],(req, res,next)=>{
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+           
+            const alert = errors.array();
+            res.render("admin/Adregister",{alert,loogedName: req.cookies['uname']})
+		}else{
+			next()
+		}
+	
+	})
+
+router.post("/adminRegi", (req,res)=>{
+    const admin = {
+        name: req.body.name,
+        email: req.body.email,
+        pass: req.body.password,
+        cpass: req.body.cpassword,
+    }
+    
+            adminModel.createAdmin(admin,status=>{
+                if (status) {
+                    res.redirect('/admin')
+                }
+            
+       
+        
+    })
+
+})
+
 module.exports = router;
