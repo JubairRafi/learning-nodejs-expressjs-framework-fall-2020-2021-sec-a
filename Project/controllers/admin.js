@@ -2,6 +2,8 @@ const express = require("express")
 const { check, validationResult} = require('express-validator'); 
 const fileUpload = require('express-fileupload')
 const moment = require('moment')
+var jsPDF = require('jspdf');
+require('jspdf-autotable');
 const fs = require('fs');
 const { report } = require("./sellerA");
 const router = express.Router()
@@ -283,12 +285,37 @@ router.get('/revenue',(req,res)=>{
               month3:month3Rev
           }
           console.log(rev,revDate);
+          req.session.revenue=rev;
+          req.session.month=revDate;
           
           res.render('admin/revenueChart',{rev:rev,revDate:revDate,loogedName: req.cookies['uname']})
       }
   })
   
  
+})
+
+router.get('/printingRepo',(req, res)=>{
+    const revenue = req.session.revenue;
+    const month = req.session.month;
+    // ()=>{
+    //     const doc = new jsPDF()
+    //     doc.autoTable({
+    //         head: [['Months', 'Revenue']],
+    //         body: [
+    //         [month.priviousMonth, revenue.month1],
+    //         [month.priviousMonth1, revenue.month2],
+    //         [month.priviousMonth2, revenue.month3],
+            
+    //         ]
+    //     })
+        
+        
+    //     doc.save('table.pdf')
+    // }
+        
+    res.render('admin/rev',{revenue:revenue,month:month,loogedName: req.cookies['uname']})
+
 })
 
 module.exports = router;

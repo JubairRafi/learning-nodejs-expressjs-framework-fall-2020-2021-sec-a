@@ -1,5 +1,6 @@
 const express           = require("express");
 const cookieParser 		= require('cookie-parser');
+const exSession = require('express-session')
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser        = require("body-parser");
 
@@ -24,6 +25,7 @@ app.use('/public', express.static('public'));
 
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(exSession({secret: 'hello', saveUninitialized: true, resave: false}));
 app.use(cookieParser());
 
 //route

@@ -39,27 +39,15 @@ padding: 10px;
     
 
     
-    
-
-
-    
-   
-
-    
-    
-
-      // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
+      
       google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
+     
       function drawChart() {
 
-        // Create the data table.
+        
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Months');
         data.addColumn('number', 'Revenue');
@@ -67,8 +55,7 @@ padding: 10px;
           [pm, rev],
           [pm1, rev1],
           [pm2, rev2]
-        //   ['Zucchini', 1],
-        //   ['Pepperoni', 2]
+        
         ]);
        
 
@@ -122,7 +109,61 @@ padding: 10px;
         </tbody>
     
     </table>
+    
+    <input type="button" id="button" class="btn btn-success" value="Genarate"/>
     <div>
+
+        <script>
+                
+            $('#button').click(function() {
+                
+                var doc = new jsPDF();
+
+            const c1 = $('#pm').val()+$('#rev').val()
+            const c2 = $('#pm1').val()+$('#rev1').val()
+            const c3 = $('#pm2').val()+$('#rev2').val()
+
+            const a1 = $('#pm').val()
+            const a2 = $('#pm1').val()
+            const a3 = $('#pm2').val()
+
+            const b1 = $('#rev').val()
+            const b2 = $('#rev1').val()
+            const b3 = $('#rev2').val()
+
+            doc.setFontSize(40)
+            doc.text(85, 20, 'Ebazar')
+
+            doc.setFontSize(10)
+            doc.text(80, 30, 'Company Sales Report Revenue')
+
+            doc.setFontSize(10)
+            doc.text(84.4, 33, ' ebazar96960@gmail.com')
+
+            doc.setFontSize(10)
+            doc.text(85, 36, 'website: www.ebazar.com')
+
+            doc.setFontSize(10)
+            doc.text(87, 39, 'contact: 01900000000')
+
+            doc.setFontSize(10)
+            doc.text(30, 70, `${a1}-----------------------------------------------------------------------------------------------------${b1}`)
+
+            doc.setFontSize(10)
+            doc.text(30, 75, `${a2}-------------------------------------------------------------------------------------------------${b2}`)
+
+            doc.setFontSize(10)
+            doc.text(30, 80, `${a3}-----------------------------------------------------------------------------------------------------${b3}`)
+
+           
+            doc.save('Revenu Report.pdf');
+           
+          
+
+
+            });
+    </script>
+    
     
     
   </body>
