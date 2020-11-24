@@ -37,7 +37,8 @@ app.use("/logout",logout);
 
 app.get("/",(req,res)=>{
     res.cookie('up', __dirname+'/public/admin/uploads')
-    res.send("HOME");
+    // res.send("HOME");
+    res.render('home/index',{layout:'./layouts/registration'})
 })
 
 
