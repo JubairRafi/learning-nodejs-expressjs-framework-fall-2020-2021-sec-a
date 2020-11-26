@@ -15,7 +15,7 @@ router.get("/",(req,res)=>{
             console.log(result,uname);
             res.cookie('uid', result[0].id)
             customerModel.getCustomer(uname,result=>{
-                console.log(result);
+                res.cookie('cid', result[0].id)
                 res.render("home/index",{loggedName : uname, cid:result[0].id})
             })
             
@@ -28,7 +28,7 @@ router.get("/profile/:id",(req,res)=>{
     const id = req.params.id;
     customerModel.getCustomerById(id,result=>{
         console.log(result[0]);
-        res.render("home/cusProfile",{cusInfo:result[0]})
+        res.render("home/cusProfile",{cusInfo:result[0],layout:'./layouts/form'})
     })
     
     
@@ -66,7 +66,7 @@ router.post("/profile/:id",(req,res)=>{
 
 
 router.get("/shop",(req,res)=>{
-    res.render("home/shop")
+    res.render("home/shop",{loggedName :req.cookies['uname'],cid:req.cookies['cid']})
 })
 
 

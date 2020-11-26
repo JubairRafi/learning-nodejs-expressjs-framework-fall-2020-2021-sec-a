@@ -1,6 +1,7 @@
 const express           = require("express")
 const bodyParser 		= require('body-parser');
 const cookieParser 		= require('cookie-parser');
+const expressLayouts    = require('express-ejs-layouts');
 const login				= require('./controllers/login');
 const admin				= require('./controllers/admin');
 const home				= require('./controllers/home');
@@ -14,11 +15,13 @@ const app               = express();
 const port              = 3000;
 
 //config
+app.use(expressLayouts);
 app.set('view engine', 'ejs');
+app.set('layout', './layouts/home');
 
 //middleware
 // app.use(express.static('public/login'))
-app.use(express.static('public'));
+app.use("/public",express.static('public'));
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -37,7 +40,7 @@ app.get("/",(req,res)=>{
 
 //registraton
 app.get("/registration",(req,res)=>{
-    res.render("registration/index")
+    res.render("registration/index",{layout:'./layouts/form'})
 })
 app.post("/registration",(req,res)=>{
     const customerInfo = {

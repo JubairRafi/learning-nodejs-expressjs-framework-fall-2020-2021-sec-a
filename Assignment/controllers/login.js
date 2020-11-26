@@ -21,7 +21,7 @@ router.post("*",[				  //POST : ("*")
 
 
 router.get('/', (req, res)=>{ //GET:/login
-	res.render('login/index');
+	res.render('login/index',{layout:'./layouts/form'});
 });
 
 router.post("/",(req,res)=>{ //POST:/login

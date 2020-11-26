@@ -33,11 +33,11 @@ router.post("*",[				  //POST : ("*")
     
 
 router.get("/",(req,res)=>{                 // GET :/admin
-    res.render("admin/index",{loggedName:req.cookies['uname']})
+    res.render("admin/index",{loggedName:req.cookies['uname'],layout:'./layouts/admin'})
 })
 
 router.get("/registration",(req,res)=>{   // GET : /admin/registration
-    res.render("admin/register");
+    res.render("admin/register",{layout:'./layouts/form'});
 })
 
 router.post("/registration",(req,res)=>{  // POST : /admin/registration
@@ -72,7 +72,7 @@ router.post("/registration",(req,res)=>{  // POST : /admin/registration
 router.get("/medicine",(req,res)=>{  //GET : /ADMIN/medicine
 
     medicineModel.getAllMedicine(results=>{
-        res.render("admin/medicine",{loggedName:req.cookies['uname'],medicines:results})
+        res.render("admin/medicine",{loggedName:req.cookies['uname'],medicines:results,layout:'./layouts/admin'})
     })
     
 })

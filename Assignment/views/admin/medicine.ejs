@@ -139,27 +139,29 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <% medicines.forEach(m=>{%>
-                                                <tr>
-                                                    <td><%= m.vendorName %></td>
-                                                    <td><%= m.mName %></td>
-                                                    <td><%= m.price %></td>
-                                                    <td><%= m.quantity %></td>
-                                                    <td> <a href="/employer/edit/<%= m.medicine_id %>">Edit</a></td>
-                                                    <td> <a href="/admin/medicine/delete/<%= m.medicine_id %>">Delete</a></td>
-                                                </tr>
-
-                                           <% }) %> 
+                                            <% if (medicines) {%>
+                                                <% medicines.forEach(m=>{%>
+                                                    <tr>
+                                                        <td><%= m.vendorName %></td>
+                                                        <td><%= m.mName %></td>
+                                                        <td><%= m.price %></td>
+                                                        <td><%= m.quantity %></td>
+                                                        <td> <a href="/employer/edit/<%= m.medicine_id %>">Edit</a></td>
+                                                        <td> <a href="/admin/medicine/delete/<%= m.medicine_id %>">Delete</a></td>
+                                                    </tr>
+    
+                                               <% }) %> 
+                                                
+                                                <%  } else{%>
+                                                    
+                                                    <tr>
+                                                        <td colspan="6">no Medicine</td>
+                                                        
+                                                    </tr>
+                                                    <%}%> 
+                                           
                                             
                                             
-                                            <tr>
-                                                <td>Jennifer Acosta</td>
-                                                <td>Junior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>43</td>
-                                                <td>2013/02/01</td>
-                                                <td>$75,650</td>
-                                            </tr>
                                             <tr>
                                                 <td>Cara Stevens</td>
                                                 <td>Sales Assistant</td>
