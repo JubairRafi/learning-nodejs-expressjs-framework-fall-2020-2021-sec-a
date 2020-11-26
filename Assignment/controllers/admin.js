@@ -1,8 +1,10 @@
 const express = require("express")
+var jwt = require('jsonwebtoken');
 const { body, validationResult, Result } = require('express-validator'); 
 const userModel = require.main.require("./models/userModel")
 const adminModel = require.main.require("./models/adminModel")
 const medicineModel = require.main.require("./models/medicineModel")
+const verifyToken = require('./auth');
 const router 	= express.Router();
 
 router.get('*',(req,res,next)=>{    // GET : (*)
@@ -32,8 +34,15 @@ router.post("*",[				  //POST : ("*")
     })
     
 
-router.get("/",(req,res)=>{                 // GET :/admin
-    res.render("admin/index",{loggedName:req.cookies['uname'],layout:'./layouts/admin'})
+router.get("/",verifyToken,(req,res)=>{  
+      jwt.verify(req.cookies['token'],'secret',(err,authData)=>{
+          if (err) {
+              res.sendStatus(403)
+          }else{
+            res.render("admin/index",{loggedName:req.cookies['uname'],layout:'./layouts/admin'})
+          }
+      })
+    
 })
 
 router.get("/registration",(req,res)=>{   // GET : /admin/registration
@@ -87,5 +96,7 @@ router.get("/medicine/delete/:id",(req,res)=>{  //GET : /ADMIN//medicine/delete/
     })
     
 })
+
+
 
 module.exports = router;

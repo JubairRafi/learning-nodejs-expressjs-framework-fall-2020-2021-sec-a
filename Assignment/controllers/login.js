@@ -1,5 +1,6 @@
 
 const express = require("express")
+var jwt = require('jsonwebtoken');
 const { body, validationResult} = require('express-validator'); 
 const userModel = require.main.require("./models/userModel")
 const router 	= express.Router();
@@ -32,25 +33,33 @@ router.post("/",(req,res)=>{ //POST:/login
 
     userModel.validate(user,results=>{
 
-        if (results) {
-            if (results[0].type=="admin") {
-                res.cookie('uname', req.body.email)
-                console.log(results[0].type);
-                res.redirect("/admin")
-            }else if(results[0].type=="customer"){
-                res.cookie('uname', req.body.email)
-                console.log(results[0].type);
-                res.redirect("/home")
+        jwt.sign({user},'secret',(err,token)=>{
+            res.cookie('token',token)
+            console.log(req.cookies['token']);
+            if (results) {
+                if (results[0].type=="admin") {
+                    res.cookie('uname', req.body.email)
+                    console.log(results[0].type);
+                    res.redirect("/admin")
+                }else if(results[0].type=="customer"){
+                    res.cookie('uname', req.body.email)
+                    console.log(results[0].type);
+                    res.redirect("/home")
+                }
+                else{
+                    res.redirect("/login")  
+                }
+            }else{
+                res.redirect("/login") 
             }
-            else{
-                res.redirect("/login")  
-            }
-        }else{
-            res.redirect("/login") 
-        }
+        })
+
+        
         
     })
 })
+
+
 
 
 module.exports = router;

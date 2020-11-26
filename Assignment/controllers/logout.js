@@ -6,6 +6,7 @@ router.get('/', (req, res)=>{
 	res.clearCookie('uname');
 	res.clearCookie('uid')
 	res.clearCookie('cid')
+	res.clearCookie('token')
 	res.redirect('/login');
 });
 
