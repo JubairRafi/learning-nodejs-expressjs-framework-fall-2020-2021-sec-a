@@ -13,15 +13,15 @@
                             <form method="POST">
                                 <div class="form-group">
                                     <label class="small mb-1">Name</label>
-                                    <input class="form-control py-4"  type="test" name="name" placeholder="Name" />
+                                    <input class="form-control py-4"  type="test" name="name" placeholder="Name" value="<%= med.mName %>" />
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" >Price</label>
-                                    <input class="form-control py-4" type="number" name="price" placeholder="price" />
+                                    <input class="form-control py-4" type="number" name="price" placeholder="price" value="<%= med.price %>" />
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" >Quantity</label>
-                                    <input class="form-control py-4" type="number" name="quantity" placeholder="quantiy" />
+                                    <input class="form-control py-4" type="number" name="quantity" placeholder="quantiy" value="<%= med.quantity %>" />
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                     <button type="submit" class="btn btn-primary">Confirm</button>

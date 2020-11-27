@@ -35,6 +35,27 @@ module.exports = {
 		  })
 	
 		},
+
+		getMedicine:function(id,callback){
+			var sql = "select * from medicine where medicine_id='"+id+"'";
+				  console.log(sql);
+			  db.getResults(sql, results=>{
+					if (results.length >0) {
+						callback(results)
+					}else{
+						callback(false)
+					}
+			  })
+	
+			},
+			editMedicine :function(med,callback){
+				var sql = "update medicine set mName = '"+med.name+"',price = '"+med.price+"',quantity = '"+med.quantity+"' where medicine_id = '"+med.id+"'";
+					  
+				db.execute(sql, status=>{
+					callback(status)
+			  })
+		
+			}
    
 
  }

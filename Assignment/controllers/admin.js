@@ -101,9 +101,35 @@ router.post("/addMed",(req,res)=>{
     
 })
 
-router.get("/medicine/delete/:id",(req,res)=>{  //GET : /ADMIN//medicine/delete/:id
+router.get("/edit/:id",(req,res)=>{  
     const id = req.params.id;
-    medicineModel.deleteMedicine(id,status=>{
+    console.log(id);
+
+    medicineModel.getMedicine(id,results=>{
+        console.log(results);
+        if (results) {
+
+            res.render("admin/editMed",{med:results[0],layout:'./layouts/form'})
+        }else{
+            res.json("getnot get med")
+        }
+        
+    })
+    
+            
+       
+    
+})
+
+router.post("/edit/:id",(req,res)=>{  //GET : /ADMIN//medicine/delete/:id
+
+    const med = {
+        name: req.body.name,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        id: req.params.id,
+    }
+    medicineModel.editMedicine(med,status=>{
         if (status) {
             res.redirect("/admin/medicine")
         }
