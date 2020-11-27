@@ -16,23 +16,6 @@ router.get('*',(req,res,next)=>{    // GET : (*)
 })
 
 
-router.post("*",[				  //POST : ("*")
-	body('email').isEmail(),
-	
-    body('password').isLength({ min: 5 }),
-    body('cpassword').isLength({ min: 5 })
-    
-	],(req, res,next)=>{
-
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array() });
-		}else{
-			next()
-		}
-	
-    })
-    
 
 router.get("/",verifyToken,(req,res)=>{  
       jwt.verify(req.cookies['token'],'secret',(err,authData)=>{
@@ -82,6 +65,38 @@ router.get("/medicine",(req,res)=>{  //GET : /ADMIN/medicine
 
     medicineModel.getAllMedicine(results=>{
         res.render("admin/medicine",{loggedName:req.cookies['uname'],medicines:results,layout:'./layouts/admin'})
+    })
+    
+})
+
+router.get("/medicine/delete/:id",(req,res)=>{  //GET : /ADMIN//medicine/delete/:id
+    const id = req.params.id;
+    medicineModel.deleteMedicine(id,status=>{
+        if (status) {
+            res.redirect("/admin/medicine")
+        }
+        
+    })
+    
+})
+
+router.get("/addMed",(req,res)=>{  
+    res.render('admin/addMed',{loggedName:req.cookies['uname'],layout:'./layouts/form'})  
+})
+router.post("/addMed",(req,res)=>{  
+    const med = {
+        name: req.body.name,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        catagory: req.body.catagory,
+        vendorname: req.body.vendorname
+    
+    }
+    medicineModel.addMedicine(med,status=>{
+        if (status) {
+            res.redirect("/admin/medicine")
+        }
+        
     })
     
 })

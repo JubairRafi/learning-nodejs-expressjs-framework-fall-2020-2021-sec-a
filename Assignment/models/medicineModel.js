@@ -24,7 +24,17 @@ module.exports = {
                     callback(status)
             })
 
-        }
+        },
+
+        addMedicine : function(medInfo,callback){
+            var sql = "insert into medicine values('','"+medInfo.name+"', '"+medInfo.price+"', '"+medInfo.quantity+"', '"+null+"','"+medInfo.catagory+"', '"+medInfo.vendorname+"')";
+            console.log(sql);
+				  
+			db.execute(sql, status=>{
+				callback(status)
+		  })
+	
+		},
    
 
  }
