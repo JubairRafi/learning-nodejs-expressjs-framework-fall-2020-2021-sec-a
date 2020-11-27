@@ -65,6 +65,9 @@
             <h2 class="text-uppercase">Popular Products</h2>
           </div>
         </div>
+        <div id="pp">
+
+        </div>
 
         <div class="row">
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
@@ -219,5 +222,33 @@
       </div>
     </div>
 
+    <script>
+      $(document).ready(function() {
+      
+
+                     $('#searching').click(function (e) {
+                             
+                             var searchvalue = $('#searching').val();
+                        
+                         $.ajax({  
+                                 url:'/admin/customer/delete',  
+                                 method:'post',  
+                                 data:{'searchId':searchvalue},
+                                 contentType: "application/x-www-form-urlencoded",  
+                                 success:function(response){ 
+                                     
+                                     $('#pp').append(response.name)
+                                     
+                                 },  
+                                 error:function(response){  
+                                     alert(response.sd)  
+                                 }  
+                             });
+                         
+                     });
+                  });
+     
+
+ </script>
 
    

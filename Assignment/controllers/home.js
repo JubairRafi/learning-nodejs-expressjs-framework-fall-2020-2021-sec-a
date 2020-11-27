@@ -85,5 +85,15 @@ router.get("/shop",(req,res)=>{
     res.render("home/shop",{loggedName :req.cookies['uname'],cid:req.cookies['cid']})
 })
 
+router.get("/search",(req,res)=>{
+    medicineModel.search(id,result=>{
+        res.json({
+            result
+        })
+        res.render("home/search",{loggedName :req.cookies['uname'],cid:req.cookies['cid']})
+    })
+   
+})
+
 
 module.exports = router;
