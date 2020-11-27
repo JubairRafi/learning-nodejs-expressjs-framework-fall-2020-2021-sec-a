@@ -2,21 +2,37 @@ const express = require("express")
 const { body, validationResult, Result } = require('express-validator'); 
 const userModel = require.main.require("./models/userModel")
 const customerModel = require.main.require("./models/customerModel")
+const medicineModel = require.main.require("./models/medicineModel")
+
+
+const fileUpload = require('express-fileupload')
 const router 	= express.Router();
+
+router.use(fileUpload());
 
 
 
 router.get("/",(req,res)=>{
     var uname = req.cookies['uname'];
     if (uname ==null) {
-        res.render("home/index",{loggedName : uname})
+        medicineModel.getAllMedicine(result=>{
+            const med = result;
+            res.render("home/index",{med,loggedName : uname})
+        })
+        
     }else{
         userModel.getuser(uname,result=>{
             console.log(result,uname);
             res.cookie('uid', result[0].id)
             customerModel.getCustomer(uname,result=>{
-                res.cookie('cid', result[0].id)
-                res.render("home/index",{loggedName : uname, cid:result[0].id})
+                
+                const cid = result[0].id;
+                medicineModel.getAllMedicine(result=>{
+                    const med = result;
+                    res.cookie('cid', cid)
+                    res.render("home/index",{med,loggedName : uname, cid:cid})
+                })
+                
             })
             
         })
