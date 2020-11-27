@@ -43,6 +43,26 @@ module.exports = {
                         }
                   })
         
+                },
+                getAllcustomer:function(callback){
+                  var sql = "select * from customerpi";
+                        
+                    db.getResults(sql, results=>{
+                          if (results.length >0) {
+                              callback(results)
+                          }else{
+                              callback(false)
+                          }
+                    })
+          
+                  },
+              dltcustomer: function(id,callback){
+                var sql = "DELETE FROM customerpi WHERE id= '"+id+"'";
+                      
+                        db.execute(sql, status=>{
+                            callback(status)
+                    })
+        
                 }
       
 

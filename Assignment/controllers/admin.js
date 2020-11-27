@@ -2,6 +2,7 @@ const express = require("express")
 var jwt = require('jsonwebtoken');
 const { body, validationResult, Result } = require('express-validator'); 
 const userModel = require.main.require("./models/userModel")
+const customerModel = require.main.require("./models/customerModel")
 const adminModel = require.main.require("./models/adminModel")
 const medicineModel = require.main.require("./models/medicineModel")
 const verifyToken = require('./auth');
@@ -22,7 +23,11 @@ router.get("/",verifyToken,(req,res)=>{
           if (err) {
               res.sendStatus(403)
           }else{
-            res.render("admin/index",{loggedName:req.cookies['uname'],layout:'./layouts/admin'})
+              customerModel.getAllcustomer(results=>{
+                  const customerInfo = results;
+                  res.render("admin/index",{customerInfo,loggedName:req.cookies['uname'],layout:'./layouts/admin'})
+              })
+           
           }
       })
     
@@ -115,8 +120,6 @@ router.get("/edit/:id",(req,res)=>{
         }
         
     })
-    
-            
        
     
 })
@@ -130,6 +133,19 @@ router.post("/edit/:id",(req,res)=>{  //GET : /ADMIN//medicine/delete/:id
         id: req.params.id,
     }
     medicineModel.editMedicine(med,status=>{
+        if (status) {
+            res.redirect("/admin/medicine")
+        }
+        
+    })
+    
+})
+
+router.post("/customer/delete",(req,res)=>{  //GET : /ADMIN//medicine/delete/:id
+
+    const id =req.body.userId;
+    console.log(id);
+    customerModel.dltcustomer(id,status=>{
         if (status) {
             res.redirect("/admin/medicine")
         }
